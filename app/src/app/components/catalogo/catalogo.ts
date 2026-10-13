@@ -5,9 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Login } from '../login/login';
+import { Carrito } from '../../carrito/carrito';
 
 @Component({
-  imports: [FormsModule, CommonModule, RouterModule, Login],
+  imports: [FormsModule, CommonModule, RouterModule, Login, Carrito],
   selector: 'app-catalogo',
   styleUrl: './catalogo.css',
   templateUrl: './catalogo.html',
