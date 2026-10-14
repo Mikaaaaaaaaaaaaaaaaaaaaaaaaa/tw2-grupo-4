@@ -1,0 +1,18 @@
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  @if (exito()) {
+    <div class="max-w-3xl mx-auto mb-5 bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 rounded-xl text-sm font-semibold" role="status">
+      ¡Producto agregado al catálogo correctamente!
+    </div>
+  }
+
+  @if (error(); as mensajeError) {
+    <div class="max-w-3xl mx-auto mb-5 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm font-semibold" role="alert">
+      {{ mensajeError }}
+    </div>
+  }
+
+  <app-form-producto
+    [guardando]="guardando()"
+    (productoGuardado)="guardarProducto($event)"
+  />
+</main>

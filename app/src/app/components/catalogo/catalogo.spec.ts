@@ -18,4 +18,12 @@ describe('Catalogo', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('debe mostrar todos los productos al iniciar con el filtro Todas', () => {
+    component.ngOnInit();
+
+    expect(component.categoriaActiva).toBe('Todos');
+    expect(component.productosFiltrados).toEqual(component.productos);
+    expect(component.productosFiltrados.length).toBeGreaterThan(0);
+  });
 });
