@@ -6,9 +6,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Login } from '../login/login';
 import { Carrito } from '../../carrito/carrito';
+import { Nav } from '../../nav/nav';
 
 @Component({
-  imports: [FormsModule, CommonModule, RouterModule, Login, Carrito],
+  imports: [FormsModule, CommonModule, RouterModule, Login, Carrito, Nav],
   selector: 'app-catalogo',
   styleUrl: './catalogo.css',
   templateUrl: './catalogo.html',
