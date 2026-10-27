@@ -1,6 +1,7 @@
 export interface ItemPedido {
   productId: number;
   quantity: number;
+  unitPrice: number;
 }
 
 export interface NuevoPedido {

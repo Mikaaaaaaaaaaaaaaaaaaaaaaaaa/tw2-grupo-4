@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { Nav } from '../../nav/nav';
 import { PedidoService } from '../../services/pedido';
 import { ProductoService } from '../../services/producto';
+import { Nav } from '../../nav/nav';
 
 @Component({
   imports: [RouterLink, DatePipe, DecimalPipe, Nav],
@@ -16,9 +16,13 @@ export class Pedidos {
   private readonly productoService = inject(ProductoService);
 
   public readonly pedidos = this.pedidoService.pedidos;
-  public readonly anio = new Date().getFullYear();
+
+  // Se arma una sola vez en vez de buscar el producto en cada render.
+  private readonly nombres = new Map(
+    this.productoService.obtenerTodosProductos().map((p) => [p.id, p.nombre] as const),
+  );
 
   public nombreProducto(productId: number): string {
-    return this.productoService.obtenerPorId(productId)?.nombre ?? `Producto #${productId}`;
+    return this.nombres.get(productId) ?? `Producto #${productId}`;
   }
 }
