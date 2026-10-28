@@ -1,8 +1,15 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Product } from '../models/product';
+import { Producto } from '../models/producto.interface';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ProductoService {
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = `${environment.apiUrl}/products`;
+
   private productos: Product[] = [
     {
       id: 1, nombre: 'MacBook Air M2 Pro 15"', categoria: 'Laptops', precio: 1399.99,
@@ -27,5 +34,10 @@ export class ProductoService {
 
   public obtenerTodosProductos(): Product[] {
     return this.productos;
+  }
+
+  public crear(producto: Producto): Observable<Producto> {
+    // El alta usa el contrato del TP. Si la API usa category/image, el mapeo debe quedar aquí.
+    return this.http.post<Producto>(this.apiUrl, producto);
   }
 }
