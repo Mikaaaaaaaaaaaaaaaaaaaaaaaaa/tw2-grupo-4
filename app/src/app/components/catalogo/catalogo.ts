@@ -31,6 +31,7 @@ export class Catalogo {
 
   public ngOnInit(): void {
     this.productos = this.productoService.obtenerTodosProductos();
+    this.aplicarFiltrosBusquedas();
   }
 
   public abrirLogin(): void {

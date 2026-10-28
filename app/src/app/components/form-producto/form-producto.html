@@ -1,0 +1,81 @@
+<form
+  class="max-w-3xl mx-auto bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-5"
+  [formGroup]="form"
+  (ngSubmit)="enviar()"
+  novalidate
+>
+  <div class="space-y-1">
+    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">Alta de Nuevo Producto</h1>
+    <p class="text-sm text-slate-500">Completá los datos para incorporar un producto al catálogo.</p>
+  </div>
+
+  <div>
+    <label for="producto_nombre" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">Nombre del Producto</label>
+    <input id="producto_nombre" type="text" formControlName="nombre" placeholder="Ej: Teclado Mecánico RGB"
+      class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+      [class.border-red-500]="tieneError('nombre')" [attr.aria-invalid]="tieneError('nombre')"
+      [attr.aria-describedby]="tieneError('nombre') ? 'error_nombre' : null">
+    @if (mensajeError('nombre'); as mensaje) {
+      <p id="error_nombre" class="text-xs text-red-600 mt-1" role="alert">{{ mensaje }}</p>
+    }
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+    <div>
+      <label for="producto_clasificacion" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">Categoría</label>
+      <select id="producto_clasificacion" formControlName="clasificacion"
+        class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-white focus:ring-indigo-500 focus:border-indigo-500"
+        [class.border-red-500]="tieneError('clasificacion')" [attr.aria-invalid]="tieneError('clasificacion')"
+        [attr.aria-describedby]="tieneError('clasificacion') ? 'error_clasificacion' : null">
+        <option value="">Seleccionar categoría</option>
+        @for (categoria of categorias; track categoria) {
+          <option [value]="categoria">{{ categoria }}</option>
+        }
+      </select>
+      @if (mensajeError('clasificacion'); as mensaje) {
+        <p id="error_clasificacion" class="text-xs text-red-600 mt-1" role="alert">{{ mensaje }}</p>
+      }
+    </div>
+
+    <div>
+      <label for="producto_precio" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">Precio en USD</label>
+      <input id="producto_precio" type="number" step="0.01" formControlName="precio" placeholder="199.99"
+        class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+        [class.border-red-500]="tieneError('precio')" [attr.aria-invalid]="tieneError('precio')"
+        [attr.aria-describedby]="tieneError('precio') ? 'error_precio' : null">
+      @if (mensajeError('precio'); as mensaje) {
+        <p id="error_precio" class="text-xs text-red-600 mt-1" role="alert">{{ mensaje }}</p>
+      }
+    </div>
+  </div>
+
+  <div>
+    <label for="producto_imagen" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">URL de la Imagen</label>
+    <input id="producto_imagen" type="url" formControlName="imagen" placeholder="https://images.unsplash.com/..."
+      class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+      [class.border-red-500]="tieneError('imagen')" [attr.aria-invalid]="tieneError('imagen')"
+      [attr.aria-describedby]="tieneError('imagen') ? 'error_imagen' : null">
+    @if (mensajeError('imagen'); as mensaje) {
+      <p id="error_imagen" class="text-xs text-red-600 mt-1" role="alert">{{ mensaje }}</p>
+    }
+  </div>
+
+  <div>
+    <div class="flex items-center justify-between mb-1">
+      <label for="producto_descripcion" class="block text-xs font-semibold uppercase tracking-wider text-slate-700">Descripción</label>
+      <span class="text-xs text-slate-400">{{ form.controls.descripcion.value.length }}/500</span>
+    </div>
+    <textarea id="producto_descripcion" rows="3" formControlName="descripcion"
+      class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+      [class.border-red-500]="tieneError('descripcion')" [attr.aria-invalid]="tieneError('descripcion')"
+      [attr.aria-describedby]="tieneError('descripcion') ? 'error_descripcion' : null"></textarea>
+    @if (mensajeError('descripcion'); as mensaje) {
+      <p id="error_descripcion" class="text-xs text-red-600 mt-1" role="alert">{{ mensaje }}</p>
+    }
+  </div>
+
+  <button type="submit" [disabled]="form.invalid || guardando()"
+    class="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-bold py-2.5 rounded-xl text-sm transition-all shadow-md shadow-indigo-500/20">
+    {{ guardando() ? 'Guardando...' : 'Guardar Producto' }}
+  </button>
+</form>
